@@ -1936,11 +1936,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.Android\\voedingskeuze.Android.csproj",
+      "projectUniqueName": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.Android\\voedingskeuze.Android.csproj",
       "projectName": "voedingskeuze.Android",
-      "projectPath": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.Android\\voedingskeuze.Android.csproj",
+      "projectPath": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.Android\\voedingskeuze.Android.csproj",
       "packagesPath": "C:\\Users\\Kevin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.Android\\obj\\",
+      "outputPath": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.Android\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -1961,8 +1961,8 @@
       "frameworks": {
         "monoandroid90": {
           "projectReferences": {
-            "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj": {
-              "projectPath": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj"
+            "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj": {
+              "projectPath": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj"
             }
           }
         }

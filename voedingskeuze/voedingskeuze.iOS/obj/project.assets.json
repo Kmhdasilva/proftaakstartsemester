@@ -984,11 +984,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.iOS\\voedingskeuze.iOS.csproj",
+      "projectUniqueName": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.iOS\\voedingskeuze.iOS.csproj",
       "projectName": "voedingskeuze.iOS",
-      "projectPath": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.iOS\\voedingskeuze.iOS.csproj",
+      "projectPath": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.iOS\\voedingskeuze.iOS.csproj",
       "packagesPath": "C:\\Users\\Kevin\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.iOS\\obj\\",
+      "outputPath": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
@@ -1009,8 +1009,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj": {
-              "projectPath": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj"
+            "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj": {
+              "projectPath": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj"
             }
           }
         }

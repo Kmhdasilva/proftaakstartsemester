@@ -1,21 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj": {}
+    "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj": {
+    "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj",
+        "projectUniqueName": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj",
         "projectName": "voedingskeuze",
-        "projectPath": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj",
+        "projectPath": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\voedingskeuze.csproj",
         "packagesPath": "C:\\Users\\Kevin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kevin\\source\\repos\\voedingskeuze\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\obj\\",
+        "outputPath": "D:\\projects\\proftaakstartsemester\\voedingskeuze\\voedingskeuze\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
           "C:\\Users\\Kevin\\AppData\\Roaming\\NuGet\\NuGet.Config",
