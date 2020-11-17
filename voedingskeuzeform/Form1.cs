@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -15,24 +16,15 @@ namespace voedingskeuzeform
     public partial class Form1 : Form
     {
         private static List<Product> producten = new List<Product>();
+        public string database = "SERVER=84.24.134.80;PORT=33598;DATABASE=scannerapp;UID=scannerapp;PASSWORD=0dt3WgKj%#2EZUY;";
+        public string database_login = "SERVER=84.24.134.80;PORT=33598;DATABASE=scannerapp_login;UID=scannerapp;PASSWORD=0dt3WgKj%#2EZUY;";
         int scannedId = 0;
-        int count = 0;
-        string[,] products;
-        string[] ingredienten;
-
-
-
 
         public Form1()
         {
             InitializeComponent();
-
-            int count = 0;
-
-            products = new string[,] { { "macaroni", "pasta", "Waarvan verzadigd 0.3 g,Totaal onverzadigde vetzuren 1 g,Koolhydraten 72 g,Waarvan suikers 3.2 g,Voedingsvezel 2.7 g,Eiwit 13 g,Zout 0 g" }, { "volkoren macaroni", "pasta", "Waarvan verzadigd	0.3 g,Totaal onverzadigde vetzuren    1 g,Koolhydraten    72 g,Waarvan suikers 3.2 g,Voedingsvezel   2.7 g,Eiwitten    13 g,Zout    0 g" }, { "bonen", "groente", "Waarvan verzadigd	0.3 g,Totaal onverzadigde vetzuren    1 g,Koolhydraten    72 g,Waarvan suikers 3.2 g,Voedingsvezel   2.7 g,Eiwitten    13 g,Zout    0 g" }, { "friet", "groente", "Waarvan verzadigd	0.3 g,Totaal onverzadigde vetzuren    1 g,Koolhydraten    72 g,Waarvan suikers 3.2 g,Voedingsvezel   2.7 g,Eiwitten    13 g,Zout    0 g" }, { "iets", "test", "Waarvan verzadigd	0.3 g,Totaal onverzadigde vetzuren    1 g,Koolhydraten    72 g,Waarvan suikers 3.2 g,Voedingsvezel   2.7 g,Eiwitten    13 g,Zout    0 g" }, { "test", "test", "Waarvan verzadigd	0.3 g,Totaal onverzadigde vetzuren    1 g,Koolhydraten    72 g,Waarvan suikers 3.2 g,Voedingsvezel   2.7 g,Eiwitten    13 g,Zout    0 g" }, { "test1", "test1", "Waarvan verzadigd	0.3 g,Totaal onverzadigde vetzuren    1 g,Koolhydraten    72 g,Waarvan suikers 3.2 g,Voedingsvezel   2.7 g,Eiwitten    13 g,Zout    0 g" }, { "test2", "test2", "Waarvan verzadigd	0.3 g,Totaal onverzadigde vetzuren    1 g,Koolhydraten    72 g,Waarvan suikers 3.2 g,Voedingsvezel   2.7 g,Eiwitten    13 g,Zout    0 g" } };
-            count += products.GetLength(0);
             database_connection();
-
+            Tabs.SelectedTab = ScanTab;
         }
 
 
@@ -60,13 +52,12 @@ namespace voedingskeuzeform
 
         private void database_connection()
         {
-            string MyConString = "SERVER=localhost;" + "DATABASE=healthy_scan;" + "UID=root;" + "PASSWORD=;";
-            MySqlConnection connection = new MySqlConnection(MyConString);
-            MySqlCommand command = connection.CreateCommand();
+            MySqlConnection databaseConnection = new MySqlConnection(database);
+            MySqlCommand commandDatabase = databaseConnection.CreateCommand();
             MySqlDataReader Reader;
-            command.CommandText = "select * from producten";
-            connection.Open();
-            Reader = command.ExecuteReader();
+            commandDatabase.CommandText = "SELECT * FROM Producten";
+            databaseConnection.Open();
+            Reader = commandDatabase.ExecuteReader();
             while (Reader.Read())
             {
                 string thisrow = "";
@@ -84,7 +75,7 @@ namespace voedingskeuzeform
                     Reader.GetString("Barcode")
                 ));
             }
-            connection.Close();
+            databaseConnection.Close();
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -134,6 +125,167 @@ namespace voedingskeuzeform
             Tabs.SelectedTab = productPage;
             scannedId = 8;
             product_detail(scannedId);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string Gebruikersnaam = loginEmailInput.Text;
+            if (Gebruikersnaam != "")
+            {
+                MessageBox.Show("U bent nu ingelogd als " + Gebruikersnaam);
+            }
+
+            if (String.IsNullOrEmpty(loginEmailInput.Text))
+            {
+                MessageBox.Show("Email is niet ingevuld.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                loginEmailInput.Focus();
+                return;
+            }
+            if (String.IsNullOrEmpty(loginPasswordInput.Text))
+            {
+                MessageBox.Show("Wachtwoord is niet ingevuld.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                loginPasswordInput.Focus();
+                return;
+            }
+            MySqlConnection databaseConnectie = new MySqlConnection(database_login);
+            MySqlCommand queryDatabase = databaseConnectie.CreateCommand();
+            MySqlDataReader reader;
+
+            string Email = loginEmailInput.Text;
+            string Password = Hash(loginPasswordInput.Text);
+
+            queryDatabase.CommandText = "SELECT email, password FROM LoginTable WHERE email = '" + Email + "' AND password = '" + Password + "'";
+
+            databaseConnectie.Open();
+            reader = queryDatabase.ExecuteReader();
+
+            if (reader.Read() == true)
+            {
+                MessageBox.Show("U bent succesvol ingelogd.");
+            }
+            else
+            {
+                MessageBox.Show("Login is mislukt. Probeer het opnieuw.", "Login mislukt", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                loginEmailInput.Clear();
+                loginPasswordInput.Clear();
+                loginEmailInput.Focus();
+            }
+            databaseConnectie.Close();
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            string Gebruikersnaam = loginEmailInput.Text;
+            if (Gebruikersnaam != "")
+            {
+                scanning();
+            }
+        }
+
+        private void scanning()
+        {
+            string Gebruikersnaam = loginEmailInput.Text;
+            int scannumber = 0;
+
+            MySqlConnection databaseConnectie = new MySqlConnection(database_login);
+            MySqlCommand queryDatabase = databaseConnectie.CreateCommand();
+            MySqlDataReader reader;
+            
+            queryDatabase.CommandText = "SELECT * FROM LoginTable WHERE username = '" + Gebruikersnaam + "'";
+            databaseConnectie.Open();
+            reader = queryDatabase.ExecuteReader();
+            while (reader.Read())
+            {
+                scannumber = reader.GetInt32(4);
+                scannumber++;
+            }
+            databaseConnectie.Close();
+
+            queryDatabase.CommandText = "UPDATE LoginTable SET scanned=" + scannumber + " WHERE username = '" + Gebruikersnaam + "'";
+            databaseConnectie.Open();
+            reader = queryDatabase.ExecuteReader();
+            databaseConnectie.Close();
+
+            queryDatabase.CommandText = "SELECT * FROM LoginTable WHERE username = '" + Gebruikersnaam + "'";
+            databaseConnectie.Open();
+            reader = queryDatabase.ExecuteReader();
+            while (reader.Read())
+            {
+                Console.WriteLine(reader.GetString(1) + " = " + reader.GetString(4));
+            }
+
+            databaseConnectie.Close();
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            Tabs.SelectedTab = LoginTab;
+
+            //var loginPopup = new Form();
+            //loginPopup.ShowDialog(this);
+
+            //LoginForm LoginForm = new LoginForm();
+            //LoginForm.ShowDialog();
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            Tabs.SelectedTab = RegisterTab;
+
+            //var registerPopup = new Form();
+            //registerPopup.ShowDialog(this);
+
+            //RegisterForm RegisterForm = new RegisterForm();
+            //RegisterForm.ShowDialog();
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (String.IsNullOrEmpty(usernameInput.Text))
+            {
+                MessageBox.Show("Gebruikersnaam is niet ingevuld.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                usernameInput.Focus();
+                return;
+            }
+            else if (String.IsNullOrEmpty(emailInput.Text))
+            {
+                MessageBox.Show("Email is niet ingevuld.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                emailInput.Focus();
+                return;
+            }
+            else if (String.IsNullOrEmpty(passwordInput.Text))
+            {
+                MessageBox.Show("Wachtwoord is niet ingevuld.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                passwordInput.Focus();
+                return;
+            }
+            else if (passwordInput.Text != confirmPasswordInput.Text)
+            {
+                MessageBox.Show("De opgegeven wachtwoorden komen niet overeen.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                passwordInput.Focus();
+                return;
+            }
+            else if (passwordInput.TextLength < 8)
+            {
+                MessageBox.Show("Het wachtwoord moet minimaal 8 karakters lang zijn.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                passwordInput.Focus();
+                return;
+            }
+            MySqlConnection databaseConnectie = new MySqlConnection(database_login);
+            MySqlCommand queryDatabase = databaseConnectie.CreateCommand();
+            MySqlDataReader reader;
+
+            queryDatabase.CommandText = "INSERT INTO LoginTable(`username`, `email`, `password`, `scanned`) VALUES ('" + usernameInput.Text + "', '" + emailInput.Text + "', '" + Hash(passwordInput.Text) + "', '0')";
+
+            databaseConnectie.Open();
+            reader = queryDatabase.ExecuteReader();
+            MessageBox.Show("U bent succesvol aangemaakt.");
+            databaseConnectie.Close();
+        }
+        static string Hash(string input)
+        {
+            var hash = new SHA1Managed().ComputeHash(Encoding.UTF8.GetBytes(input));
+            return string.Concat(hash.Select(b => b.ToString("x2")));
         }
     }
 }
